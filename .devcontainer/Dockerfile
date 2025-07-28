@@ -11,6 +11,9 @@ RUN set -eux -o pipefail && \
     dnf config-manager --set-enabled powertools && \ 
     dnf install -y ca-certificates cmake gcc gcc-c++ glib2-devel python3 xz
 
+RUN set -eux -p pipefail && \
+    pip install flask
+
 # envs
 ENV INSTALL_PATH "/usr/local"
 ENV PATH ${HOME}/bin:${PATH}
