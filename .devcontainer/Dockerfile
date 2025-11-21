@@ -1,13 +1,11 @@
 
-FROM rockylinux:9.3 AS base
+FROM rockylinux/rockylinux:10 AS base
 
 ARG REPO_NAME=py-play
 ARG USERNAME=guido
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
-RUN set -eux -o pipefail && \
-    dnf install --setopt=***.sslverify=false -y dnf-utils dnf-plugins-core epel-release
 RUN set -eux -o pipefail && \
     dnf install --setopt=***.sslverify=false -y ca-certificates curl-minimal git jq sudo which rsync
 RUN set -eux -o pipefail && \
@@ -45,3 +43,9 @@ ENV PATH=${HOME}/bin:${PATH}
 COPY --chown=${USERNAME}:${USERNAME} .bash_pretty ${HOME}/.bash_pretty
 RUN set -eux && \
     echo "source ${HOME}/.bash_pretty" >> ${HOME}/.bashrc
+
+RUN set -eux && \
+    uv add google-adk google-genai && \
+    source ~/.venv/bin/activate
+
+ENV GOOGLE_API_KEY="TODO: SET THIS"
