@@ -14,7 +14,8 @@ RUN set -eux -o pipefail && \
     dnf install --setopt=***.sslverify=false -y python3 python3-pip
 
 RUN set -eux -o pipefail && \
-    pip install flask
+    pip install flask && \
+    curl -kLsSf https://astral.sh/uv/install.sh | sh
 
 # envs
 ENV INSTALL_PATH="/usr/local"
