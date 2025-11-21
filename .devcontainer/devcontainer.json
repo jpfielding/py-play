@@ -1,5 +1,5 @@
 {
-    "name": "zig-play",
+    "name": "py-play",
     "build": { 
       "dockerfile": "./Dockerfile",
       "context": ".",
