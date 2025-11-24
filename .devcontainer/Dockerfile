@@ -45,7 +45,8 @@ RUN set -eux && \
     echo "source ${HOME}/.bash_pretty" >> ${HOME}/.bashrc
 
 RUN set -eux && \
+    pip install uv && \
     uv add google-adk google-genai && \
-    source ~/.venv/bin/activate
+    source ~/.venv/bin/activate || true
 
 ENV GOOGLE_API_KEY="TODO: SET THIS"
