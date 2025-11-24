@@ -21,7 +21,7 @@ ENV PATH="${HOME}/bin:${PATH}"
 
 # Create the user
 RUN groupadd --gid ${USER_GID} ${USERNAME} && \
-  useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} -s /bin/zsh && \
+  useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} -s /bin/bash && \
   echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/${USERNAME} && \
   chmod 0440 /etc/sudoers.d/${USERNAME}
 
@@ -45,8 +45,8 @@ RUN set -eux && \
     echo "source ${HOME}/.bash_pretty" >> ${HOME}/.bashrc
 
 RUN set -eux && \
-    pip install uv && \
+    curl -LsSf https://astral.sh/uv/install.sh | sh && \
     uv add google-adk google-genai && \
-    source ~/.venv/bin/activate || true
+    source .venv/bin/activate || true
 
 ENV GOOGLE_API_KEY="TODO: SET THIS"
