@@ -47,8 +47,8 @@ RUN set -eux && \
 RUN set -eux && \
     curl -LsSf https://astral.sh/uv/install.sh | sh
 
-RUN set -eux && \
-    uv add google-adk google-genai && \
-    source .venv/bin/activate || true
+# RUN set -eux && \
+#     uv add google-adk google-genai && \
+#     source .venv/bin/activate || true
 
 ENV GOOGLE_API_KEY="TODO: SET THIS"

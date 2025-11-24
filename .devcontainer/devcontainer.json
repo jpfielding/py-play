@@ -52,6 +52,7 @@
     "initializeCommand": {
       "netrc":      "touch ${localEnv:HOME}/.netrc",
       "ssh dir":    "mkdir -p ${localEnv:HOME}/.ssh",
+      "venv dir":   "mkdir -p ${localEnv:HOME}/.venv_${localWorkspaceFolderBasename}",
       "gitconfig":  "touch ${localEnv:HOME}/.gitconfig",
       "bash history": "touch ${localEnv:HOME}/.bash_history_${localWorkspaceFolderBasename}"
     },
