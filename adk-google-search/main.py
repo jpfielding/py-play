@@ -18,8 +18,12 @@ from google.adk.sessions import InMemorySessionService
 from google.adk.tools import google_search
 from google.genai import types
 import asyncio
+import os
+from dotenv import load_dotenv
 
-APP_NAME="adk-google-search"
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+
+APP_NAME="agents"
 USER_ID="user1234"
 SESSION_ID="1234"
 
