@@ -40,6 +40,11 @@
         "type": "bind",
         "source": "${localEnv:HOME}/.bash_history_${localWorkspaceFolderBasename}",
         "target": "/home/${localEnv:USER:play}/.bash_history"
+      },
+      {
+        "type": "bind",
+        "source": "${localEnv:HOME}/.venv_${localWorkspaceFolderBasename}",
+        "target": "/home/${localEnv:USER:play}/.venv"
       }
       ],
     "workspaceMount": "source=${localWorkspaceFolder},target=/workdir/${localWorkspaceFolderBasename},type=bind,consistency=cached", 
