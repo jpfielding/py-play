@@ -44,7 +44,7 @@
       {
         "type": "bind",
         "source": "${localEnv:HOME}/.venv_${localWorkspaceFolderBasename}",
-        "target": "/home/${localEnv:USER:play}/.venv"
+        "target": "/workdir/${localWorkspaceFolderBasename}/.venv"
       }
       ],
     "workspaceMount": "source=${localWorkspaceFolder},target=/workdir/${localWorkspaceFolderBasename},type=bind,consistency=cached", 
