@@ -1,5 +1,5 @@
 
-FROM rockylinux/rockylinux:10 AS base
+FROM rockylinux:9 AS base
 
 ARG REPO_NAME=py-play
 ARG USERNAME=guido
@@ -7,16 +7,12 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 RUN set -eux -o pipefail && \
-    dnf install --setopt=***.sslverify=false -y ca-certificates curl-minimal git jq sudo which rsync
+    dnf --setopt=***.sslverify=false install -y epel-release && \
+    dnf --setopt=***.sslverify=false -y update
 RUN set -eux -o pipefail && \
-    dnf install --setopt=***.sslverify=false -y python3 python3-pip
+    dnf --setopt=***.sslverify=false install -y ca-certificates curl-minimal git jq python3 python3-pip sudo which rsync
 
-RUN set -eux -o pipefail && \
-    pip install flask && \
-    curl -kLsSf https://astral.sh/uv/install.sh | sh
-
-# envs
-ENV INSTALL_PATH="/usr/local"
+    # envs
 ENV PATH="${HOME}/bin:${PATH}"
 
 # Create the user
@@ -37,18 +33,23 @@ RUN set -eux && \
 # envs
 ENV HOME="/home/${USERNAME}"
 ENV SDK_HOME=${HOME}/sdk
-ENV PATH=${HOME}/bin:${PATH}
+ENV PATH=${HOME}/bin:${HOME}/.local/bin:${PATH}
 
 # pretty bash
 COPY --chown=${USERNAME}:${USERNAME} .bash_pretty ${HOME}/.bash_pretty
 RUN set -eux && \
     echo "source ${HOME}/.bash_pretty" >> ${HOME}/.bashrc
 
+# assume no validation so we can work on corp networks w/o requiring CAs
 RUN set -eux && \
-    curl -LsSf https://astral.sh/uv/install.sh | sh
+    echo "alias dnf='dnf --setopt=***.sslverify=false'" >> ${HOME}/.bashrc
 
-# RUN set -eux && \
-#     uv add google-adk google-genai && \
-#     source .venv/bin/activate || true
+RUN set -eux && \
+    curl -kLsSf https://astral.sh/uv/install.sh | sh && \
+    uv install python3.14 && \
+    uv python pin 3.14 && \
+    python3.14 -m venv .venv && \
+    uv add flask google-adk google-genai && \
+    source .venv/bin/activate || true
 
 ENV GOOGLE_API_KEY="TODO: SET THIS"

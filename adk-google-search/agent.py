@@ -17,15 +17,16 @@ from google.adk.runners import Runner
 from google.adk.sessions import InMemorySessionService
 from google.adk.tools import google_search
 from google.genai import types
+import asyncio
 
-APP_NAME="google_search_agent"
+APP_NAME="adk-google-search"
 USER_ID="user1234"
 SESSION_ID="1234"
 
 
 root_agent = Agent(
     name="basic_search_agent",
-    model="gemini-3-pro-preview",
+    model="gemini-2.5-flash",
     description="Agent to answer questions using Google Search.",
     instruction="I can answer your questions by searching the internet. Just ask me anything!",
     # google_search is a pre-built tool which allows the agent to perform Google searches.
@@ -52,4 +53,23 @@ async def call_agent_async(query):
 
 # Note: In Colab, you can directly use 'await' at the top level.
 # If running this code as a standalone Python script, you'll need to use asyncio.run() or manage the event loop.
-await call_agent_async("what's the latest ai news?")
+# await call_agent_async("what's the latest ai news?")
+
+# Main async function to run the examples
+async def main():
+    await call_agent_async("Calculate the value of (5 + 7) * 3")
+    await call_agent_async("What is 10 factorial?")
+
+
+# Execute the main async function
+try:
+    asyncio.run(call_agent_async("what's the latest ai news?"))
+except RuntimeError as e:
+    # Handle specific error when running asyncio.run in an already running loop (like Jupyter/Colab)
+    if "cannot be called from a running event loop" in str(e):
+        print("\nRunning in an existing event loop (like Colab/Jupyter).")
+        print("Please run `await main()` in a notebook cell instead.")
+        # If in an interactive environment like a notebook, you might need to run:
+        # await main()
+    else:
+        raise e  # Re-raise other runtime errors
