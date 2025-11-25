@@ -59,11 +59,6 @@ async def call_agent_async(query):
 # If running this code as a standalone Python script, you'll need to use asyncio.run() or manage the event loop.
 # await call_agent_async("what's the latest ai news?")
 
-# Main async function to run the examples
-async def main():
-    await call_agent_async("Calculate the value of (5 + 7) * 3")
-    await call_agent_async("What is 10 factorial?")
-
 
 # Execute the main async function
 try:
