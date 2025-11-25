@@ -15,7 +15,7 @@ RUN set -eux -o pipefail && \
 RUN set -eux -o pipefail && \
     dnf --setopt=***.sslverify=false install -y ca-certificates curl-minimal git jq python3 python3-pip sudo which rsync
 
-    # envs
+# envs
 ENV PATH="${HOME}/bin:${PATH}"
 
 # Create the user
