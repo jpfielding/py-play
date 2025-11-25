@@ -1,10 +1,13 @@
-
 FROM rockylinux:9 AS base
 
 ARG REPO_NAME=py-play
 ARG USERNAME=guido
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
+
+# Add ca certs so we can build the image on vpn
+COPY cas.pem /etc/pki/ca-trust/source/anchors/custom_cas.pem 
+RUN update-ca-trust
 
 RUN set -eux -o pipefail && \
     dnf --setopt=***.sslverify=false install -y epel-release && \
