@@ -13,7 +13,7 @@ RUN set -eux -o pipefail && \
     dnf --setopt=***.sslverify=false install -y epel-release && \
     dnf --setopt=***.sslverify=false -y update
 RUN set -eux -o pipefail && \
-    dnf --setopt=***.sslverify=false install -y ca-certificates curl-minimal git jq lsof python3 python3-pip sudo which rsync zsh
+    dnf --setopt=***.sslverify=false install -y ca-certificates curl-minimal git jq lsof procps python3 python3-pip sudo wget which rsync zsh
 
 # envs
 ENV PATH="${HOME}/bin:${PATH}"
